@@ -1,0 +1,15 @@
+#Project Name
+Project_Name: "Cisco BSI"
+
+### CIS Sections and Rules
+section01: true
+#section02: true
+#section03: true
+#section04: true
+#section05: true
+#section06: true
+
+### CIS Section 1
+ios15cis_rule_1_1_1 : true
+ios15cis_rule_1_1_2 : true
+ios15cis_rule_1_1_3 : true

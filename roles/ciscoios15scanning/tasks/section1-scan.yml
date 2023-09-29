@@ -1,0 +1,61 @@
+---
+#
+# Copyright 2023
+# This section contains 60 rules
+# Has Hash-out all the rules apart From Mandatory Checklist
+#####
+  - name: " 1.1.1 | SCAN | Enable 'aaa new-model' (Automated)"
+    block:
+    - name: " 1.1.1 | SCAN | Enable 'aaa new-model' (Automated)"
+      raw: show running-config | inc aaa new-model
+      ignore_errors: yes
+      register: ios15cis_rule_1_1_1_rc                 
+    - set_fact:
+        ios15cis_rule_1_1_1_result: false
+      when: ios15cis_rule_1_1_1_rc.stdout_lines == "aaa new-model "
+    - set_fact:
+        all_results: "{{ all_results|combine({'1.1.1':ios15cis_rule_1_1_1_result|default(true)}) }}"
+    when: ios15cis_rule_1_1_1
+    tags:
+     - level1
+     - scan
+     - rule_1.1.1
+     - ios15
+     
+     
+  - name: " 1.1.2 | SCAN | Enable 'aaa authentication login' (Automated)"
+    block:
+    - name: " 1.1.2 | SCAN | Enable 'aaa authentication login' (Automated)"
+      raw: show run | incl aaa authentication login
+      ignore_errors: yes
+      register: ios15cis_rule_1_1_2_rc      
+    - set_fact:
+        ios15cis_rule_1_1_2_result: false
+      when: ios15cis_rule_1_1_2_rc.rc == 0
+    - set_fact:
+        all_results: "{{ all_results|combine({'1.1.2':ios15cis_rule_1_1_2_result|default(true)}) }}"
+    when: ios15cis_rule_1_1_2
+    tags:
+     - level1
+     - scan
+     - rule_1.1.2
+     - ios15
+     
+ 
+  - name: " 1.1.3 | SCAN | Enable 'aaa authentication enable default' (Automated)"
+    block:
+    - name: " 1.1.3 | SCAN | Enable 'aaa authentication enable default' (Automated)"
+      raw: show run | incl aaa authentication login
+      ignore_errors: yes
+      register: ios15cis_rule_1_1_3_rc      
+    - set_fact:
+        ios15cis_rule_1_1_3_result: false
+      when: ios15cis_rule_1_1_3_rc.rc == 0
+    - set_fact:
+        all_results: "{{ all_results|combine({'1.1.3':ios15cis_rule_1_1_3_result|default(true)}) }}"
+    when: ios15cis_rule_1_1_3
+    tags:
+     - level1
+     - scan
+     - rule_1.1.3
+     - ios15   

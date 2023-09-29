@@ -1,0 +1,20 @@
+---
+- hosts: all
+  gather_facts: no
+  tasks:
+  
+  - name: Check Rule cisco01
+    raw: show running-config | inc aaa new-model
+    register: output1    
+  - name: Output Rule cisco01
+    debug:
+      var: output1.stdout_lines
+      
+  - name: Check hostname
+    raw: sho run | inc hostname
+    register: target_hostname
+  - set_fact: 
+      var_hostname: "{{ target_hostname.stdout | regex_search('hostname (.+)', '\\1') | first | trim }}"
+  - name: Hostname output
+    debug:
+      var: var_hostname
