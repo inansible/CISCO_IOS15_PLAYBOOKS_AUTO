@@ -59,3 +59,25 @@
      - scan
      - rule_1.1.3
      - ios15   
+
+     
+  - name: " 1.1.4 | SCAN | Set 'login authentication for 'line con 0' (Automated)"
+    block:
+    - name: " 1.1.4 | SCAN | Set 'login authentication for 'line con 0' (Automated)"
+      raw: sh run | sec line con | incl login authentication
+      ignore_errors: yes
+      register: ios15cis_rule_1_1_4
+    - set_fact: 
+        ios15cis_rule_1_1_4_rc: "{{ ios15cis_rule_1_1_4.stdout | regex_search('con (.+)', '\\1') | first | trim }}"
+      ignore_errors: yes            
+    - set_fact:
+        ios15cis_rule_1_1_4_result: false        
+      when: ios15cis_rule_1_1_4_rc.rc != 0
+    - set_fact:
+        all_results: "{{ all_results|combine({'1.1.4':ios15cis_rule_1_1_4_result|default(true)}) }}"
+    when: ios15cis_rule_1_1_4
+    tags:
+     - level1
+     - scan
+     - rule_1.1.4
+     - ios15      
